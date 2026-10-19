@@ -18,7 +18,7 @@
     .p3 { animation: p3 10s linear infinite; } .p4 { animation: p4 10s linear infinite; }
     .p5 { animation: p5 10s linear infinite; }
 
-    @keyframes fx  { 0%,19% { opacity: 0; transform: scale(.2) } 21%,100% { opacity: 1; transform: scale(1) } }
+    @keyframes fx  { 0%,62% { opacity: 0; transform: scale(.2) } 66%,100% { opacity: 1; transform: scale(1) } }
     .fx { animation: fx 10s linear infinite; }
 
     @keyframes a1 { 0%,35% { opacity: 0; transform: scale(.2) } 37%,100% { opacity: 1; transform: scale(1) } }
@@ -47,7 +47,7 @@
 
   <g class="cycle">
     <!-- main lane -->
-    <path class="lmain" d="M 80 110 H 560" stroke="#6366f1" stroke-width="2.5" opacity="0.5" pathLength="1" fill="none"/>
+    <path class="lmain" d="M 80 110 H 480" stroke="#6366f1" stroke-width="2.5" opacity="0.5" pathLength="1" fill="none"/>
     <!-- fork curve -->
     <path class="lfork" d="M 290 110 C 350 110, 340 205, 400 205 H 600" stroke="#34d399" stroke-width="2.5" opacity="0.55" pathLength="1" fill="none"/>
     <!-- rewound (anchored) tail -->
@@ -68,8 +68,8 @@
     </g>
     <!-- effect marker -->
     <g class="n fx">
-      <circle cx="406" cy="96" r="5" fill="#f59e0b"/>
-      <text x="420" y="92" font-size="12" fill="#d8a63f">effect: payment.charge — recorded once</text>
+      <circle cx="610" cy="130" r="5" fill="#f59e0b"/>
+      <text x="624" y="134" font-size="12" fill="#d8a63f">effect: payment.charge, kept</text>
     </g>
 
     <!-- alt commits -->
