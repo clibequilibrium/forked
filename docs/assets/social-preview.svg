@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="0%" r="90%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.28"/>
+      <stop offset="55%" stop-color="#6366f1" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1280" height="640" fill="#09090e"/>
+  <rect width="1280" height="640" fill="url(#glow)"/>
+  <rect x="1" y="1" width="1278" height="638" fill="none" stroke="#26263a" stroke-width="2"/>
+
+  <!-- wordmark -->
+  <g transform="translate(92, 150)">
+    <g transform="scale(2.6)">
+      <path d="M7 4v8.5a4 4 0 0 0 4 4h2" stroke="#e4e4ef" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      <path d="M17 4v4.5" stroke="#e4e4ef" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      <circle cx="7" cy="4" r="2.4" fill="#818cf8"/>
+      <circle cx="17" cy="4" r="2.4" fill="#818cf8"/>
+      <circle cx="16" cy="18" r="2.4" fill="#34d399"/>
+    </g>
+    <text x="78" y="44" font-family="Segoe UI, Arial, sans-serif" font-size="58" font-weight="700" fill="#fafafa">forked</text>
+  </g>
+
+  <text x="92" y="305" font-family="Segoe UI, Arial, sans-serif" font-size="64" font-weight="700" fill="#fafafa" letter-spacing="-1.5">Git for agent state.</text>
+
+  <text x="92" y="365" font-family="Segoe UI, Arial, sans-serif" font-size="27" fill="#9d9daf">Fork, rewind and replay your AI agent's state.</text>
+  <text x="92" y="405" font-family="Segoe UI, Arial, sans-serif" font-size="27" fill="#9d9daf">Side effects never run twice, however often you retry.</text>
+
+  <text x="92" y="478" font-family="Consolas, Menlo, monospace" font-size="21" fill="#5b5b70">1,000 forks in 1.4 ms  ·  zero state copied  ·  Rust core  ·  Apache-2.0</text>
+
+  <!-- url pill -->
+  <rect x="92" y="520" width="214" height="52" rx="26" fill="#ffffff"/>
+  <text x="199" y="554" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="600" fill="#09090e">forked.run</text>
+
+  <!-- branch tree -->
+  <g transform="translate(830, 120)">
+    <path d="M 40 30 V 430" stroke="#6366f1" stroke-width="4" opacity="0.5"/>
+    <path d="M 40 150 C 40 210, 170 180, 170 250 V 360" stroke="#34d399" stroke-width="4" fill="none" opacity="0.55"/>
+    <path d="M 40 270 C 40 320, 300 290, 300 360 V 400" stroke="#d97706" stroke-width="4" fill="none" opacity="0.5"/>
+
+    <circle cx="40" cy="30" r="13" fill="#6366f1"/>
+    <circle cx="40" cy="150" r="13" fill="#6366f1"/>
+    <circle cx="40" cy="270" r="13" fill="#6366f1"/>
+    <circle cx="40" cy="430" r="16" fill="#818cf8"/>
+    <circle cx="170" cy="250" r="13" fill="#34d399"/>
+    <circle cx="170" cy="360" r="16" fill="#6ee7b7"/>
+    <circle cx="300" cy="360" r="13" fill="#d97706"/>
+    <circle cx="300" cy="400" r="16" fill="#fbbf24"/>
+
+    <!-- effect marker -->
+    <circle cx="62" cy="248" r="8" fill="#f59e0b"/>
+
+    <text x="70" y="438" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="600" fill="#e4e4ef">main</text>
+    <text x="196" y="368" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="600" fill="#b7f3dc">alt</text>
+  </g>
+</svg>
