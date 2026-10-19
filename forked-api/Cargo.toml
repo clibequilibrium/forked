@@ -1,0 +1,13 @@
+[package]
+name = "forked-api"
+description = "HTTP API contract for forked: request/response types and a transport-agnostic dispatcher shared by the self-hosted server and forked cloud."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+forked-core = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }

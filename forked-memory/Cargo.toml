@@ -1,0 +1,15 @@
+[package]
+name = "forked-memory"
+description = "In-memory storage adapter for forked: tests and local development."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+forked-core = { workspace = true }
+
+[dev-dependencies]
+pollster = { workspace = true }
+serde_json = { workspace = true }

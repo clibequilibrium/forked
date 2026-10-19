@@ -1,0 +1,15 @@
+{
+  "name": "forked-examples",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "01": "node 01-safe-retry.mjs",
+    "02": "node 02-time-travel-debugging.mjs",
+    "03": "node 03-best-of-n.mjs",
+    "all": "node 01-safe-retry.mjs && node 02-time-travel-debugging.mjs && node 03-best-of-n.mjs"
+  },
+  "dependencies": {
+    "@forked/client": "file:../clients/ts"
+  }
+}

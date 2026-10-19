@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: -D warnings
+
+jobs:
+  test:
+    name: Rust tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo test --workspace
+
+  lint:
+    name: Clippy + fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt --all --check
+      - run: cargo clippy --workspace --all-targets -- -D warnings
+
+  wasm:
+    name: Core builds for wasm32
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo build -p forked-core --target wasm32-unknown-unknown
+
+  clients:
+    name: TypeScript SDK + checkpointer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install && npm run check && npm run build
+        working-directory: clients/ts
+      - run: npm install && npm run check
+        working-directory: clients/langgraph
+      - run: npm install && npm run build
+        working-directory: clients/mcp
+
+  smoke:
+    name: End-to-end smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install && npm run build
+        working-directory: clients/ts
+      - run: npm install && npm run build
+        working-directory: clients/langgraph
+      - run: npm install
+        working-directory: examples
+      - run: |
+          cargo run -p forked-server -- --db memory --addr 127.0.0.1:8099 &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:8099/v1/health && break || sleep 1
+          done
+          node clients/langgraph/examples/smoke.mjs
+          cd examples && FORKED_URL=http://127.0.0.1:8099 npm run all

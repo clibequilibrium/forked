@@ -1,0 +1,42 @@
+{
+  "name": "@forked/langgraph",
+  "version": "0.1.0",
+  "description": "LangGraph checkpointer backed by forked: every checkpoint is a commit, fork threads, rewind time travel for real, and keep side effects effectively-once.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clibequilibrium/forked",
+    "directory": "clients/langgraph"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@forked/client": "file:../ts"
+  },
+  "peerDependencies": {
+    "@langchain/langgraph-checkpoint": ">=0.0.13 <2.0.0"
+  },
+  "devDependencies": {
+    "@langchain/core": "^0.3.0",
+    "@langchain/langgraph-checkpoint": "^0.1.0",
+    "typescript": "^5.6.0"
+  }
+}
