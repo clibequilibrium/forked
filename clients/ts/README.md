@@ -1,4 +1,4 @@
-# @forked/client
+# @forked-run/client
 
 TypeScript client for [forked](https://github.com/clibequilibrium/forked) -
 versioned state for AI agents: fork, rewind and replay structured agent
@@ -6,11 +6,11 @@ state, with an effect log that keeps side effects effectively-once across
 rewinds.
 
 ```sh
-npm install @forked/client
+npm install @forked-run/client
 ```
 
 ```ts
-import { ForkedClient } from "@forked/client";
+import { ForkedClient } from "@forked-run/client";
 
 // Self-hosted or forked cloud, same API, switch via baseUrl.
 const forked = new ForkedClient({

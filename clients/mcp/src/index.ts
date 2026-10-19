@@ -1,5 +1,5 @@
 /**
- * @forked/mcp, an MCP server that gives any agent undo.
+ * @forked-run/mcp, an MCP server that gives any agent undo.
  *
  * Exposes forked (versioned agent state: fork, rewind, replay, plus an
  * effectively-once side-effect log) as MCP tools, so Claude Code, Claude
@@ -7,7 +7,7 @@
  * working state with zero SDK integration.
  */
 
-import { ForkedClient, ForkedError, type Json, type Op } from "@forked/client";
+import { ForkedClient, ForkedError, type Json, type Op } from "@forked-run/client";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 

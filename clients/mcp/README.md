@@ -1,4 +1,4 @@
-# @forked/mcp
+# @forked-run/mcp
 
 **Give your agent undo.** An MCP server that exposes
 [forked](https://github.com/clibequilibrium/forked), versioned agent state, as
@@ -12,7 +12,7 @@ Against a local server (`forked-server --db forked.db`):
 
 ```sh
 # Claude Code
-claude mcp add forked --env FORKED_URL=http://localhost:8080 -- npx -y @forked/mcp
+claude mcp add forked --env FORKED_URL=http://localhost:8080 -- npx -y @forked-run/mcp
 ```
 
 Against forked cloud:
@@ -21,7 +21,7 @@ Against forked cloud:
 claude mcp add forked \
   --env FORKED_URL=https://api.forked.run \
   --env FORKED_API_KEY=fk_live_… \
-  -- npx -y @forked/mcp
+  -- npx -y @forked-run/mcp
 ```
 
 Claude Desktop / Cursor (`mcpServers` JSON):
@@ -31,7 +31,7 @@ Claude Desktop / Cursor (`mcpServers` JSON):
   "mcpServers": {
     "forked": {
       "command": "npx",
-      "args": ["-y", "@forked/mcp"],
+      "args": ["-y", "@forked-run/mcp"],
       "env": { "FORKED_URL": "http://localhost:8080" }
     }
   }

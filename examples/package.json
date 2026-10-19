@@ -10,6 +10,6 @@
     "all": "node 01-safe-retry.mjs && node 02-time-travel-debugging.mjs && node 03-best-of-n.mjs"
   },
   "dependencies": {
-    "@forked/client": "file:../clients/ts"
+    "@forked-run/client": "file:../clients/ts"
   }
 }

@@ -1,5 +1,5 @@
 /**
- * @forked/langgraph, a LangGraph checkpointer backed by forked.
+ * @forked-run/langgraph, a LangGraph checkpointer backed by forked.
  *
  * Mapping:
  * - thread_id       → forked session
@@ -25,7 +25,7 @@ import {
   WRITES_IDX_MAP,
 } from "@langchain/langgraph-checkpoint";
 import type { RunnableConfig } from "@langchain/core/runnables";
-import { ForkedClient, ForkedError, type Commit, type Json, type Op } from "@forked/client";
+import { ForkedClient, ForkedError, type Commit, type Json, type Op } from "@forked-run/client";
 
 interface SerializedBlob {
   t: string;
@@ -106,8 +106,8 @@ export interface ForkedSaverOptions {
  * A LangGraph checkpointer where every checkpoint is a forked commit.
  *
  * ```ts
- * import { ForkedClient } from "@forked/client";
- * import { ForkedSaver } from "@forked/langgraph";
+ * import { ForkedClient } from "@forked-run/client";
+ * import { ForkedSaver } from "@forked-run/langgraph";
  *
  * const checkpointer = new ForkedSaver({
  *   client: new ForkedClient({ baseUrl: "http://localhost:8080" }),
@@ -381,4 +381,4 @@ export class ForkedSaver extends BaseCheckpointSaver {
   }
 }
 
-export { ForkedClient, ForkedError } from "@forked/client";
+export { ForkedClient, ForkedError } from "@forked-run/client";

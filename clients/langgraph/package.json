@@ -1,5 +1,5 @@
 {
-  "name": "@forked/langgraph",
+  "name": "@forked-run/langgraph",
   "version": "0.1.0",
   "description": "LangGraph checkpointer backed by forked: every checkpoint is a commit, fork threads, rewind time travel for real, and keep side effects effectively-once.",
   "license": "Apache-2.0",
@@ -29,7 +29,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@forked/client": "file:../ts"
+    "@forked-run/client": "file:../ts"
   },
   "peerDependencies": {
     "@langchain/langgraph-checkpoint": ">=0.0.13 <2.0.0"

@@ -9,7 +9,7 @@
 //   node 03-best-of-n.mjs
 
 import assert from "node:assert/strict";
-import { ForkedClient } from "@forked/client";
+import { ForkedClient } from "@forked-run/client";
 
 const forked = new ForkedClient({
   baseUrl: process.env.FORKED_URL ?? "http://127.0.0.1:8080",

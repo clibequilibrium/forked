@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
  * Stdio entrypoint:
- *   FORKED_URL=http://localhost:8080 npx @forked/mcp
+ *   FORKED_URL=http://localhost:8080 npx @forked-run/mcp
  * or for forked cloud:
- *   FORKED_URL=https://api.forked.run FORKED_API_KEY=fk_live_… npx @forked/mcp
+ *   FORKED_URL=https://api.forked.run FORKED_API_KEY=fk_live_… npx @forked-run/mcp
  */
 
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";

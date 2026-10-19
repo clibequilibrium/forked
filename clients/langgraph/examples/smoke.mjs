@@ -4,7 +4,7 @@
 // Exercises the raw SDK, then the LangGraph checkpointer including real
 // time travel (rewind + anchored history).
 import assert from "node:assert/strict";
-import { ForkedClient, ForkedError } from "@forked/client";
+import { ForkedClient, ForkedError } from "@forked-run/client";
 import { ForkedSaver } from "../dist/index.js";
 
 const baseUrl = process.env.FORKED_URL ?? "http://127.0.0.1:8099";

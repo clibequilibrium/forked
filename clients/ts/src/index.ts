@@ -1,5 +1,5 @@
 /**
- * @forked/client, TypeScript client for the forked v1 API.
+ * @forked-run/client, TypeScript client for the forked v1 API.
  *
  * Works against a self-hosted `forked-server` or forked cloud; only
  * `baseUrl` (and the API key) changes. Zero dependencies; uses global

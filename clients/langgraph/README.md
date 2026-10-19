@@ -1,4 +1,4 @@
-# @forked/langgraph
+# @forked-run/langgraph
 
 A [LangGraph](https://github.com/langchain-ai/langgraphjs) checkpointer
 backed by [forked](https://github.com/clibequilibrium/forked): every checkpoint
@@ -17,12 +17,12 @@ What you get over a plain checkpointer:
   `already_recorded` and reuses the stored result instead of re-sending.
 
 ```sh
-npm install @forked/langgraph @forked/client @langchain/langgraph
+npm install @forked-run/langgraph @forked-run/client @langchain/langgraph
 ```
 
 ```ts
-import { ForkedClient } from "@forked/client";
-import { ForkedSaver } from "@forked/langgraph";
+import { ForkedClient } from "@forked-run/client";
+import { ForkedSaver } from "@forked-run/langgraph";
 import { StateGraph } from "@langchain/langgraph";
 
 const checkpointer = new ForkedSaver({

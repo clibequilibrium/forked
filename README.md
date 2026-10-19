@@ -42,7 +42,7 @@ cargo run -p forked-server -- --db forked.db
 ```
 
 ```ts
-import { ForkedClient } from "@forked/client";
+import { ForkedClient } from "@forked-run/client";
 
 const forked = new ForkedClient({ baseUrl: "http://localhost:8080" });
 const session = await forked.createSession();
@@ -63,7 +63,7 @@ await session.recordEffect({                   // replays stored result on retry
 });
 ```
 
-Using LangGraph? `@forked/langgraph` is a drop-in checkpointer where time
+Using LangGraph? `@forked-run/langgraph` is a drop-in checkpointer where time
 travel becomes a real branch rewind, see
 [clients/langgraph](clients/langgraph/README.md).
 
@@ -93,9 +93,9 @@ Specs: [docs/FORMAT.md](docs/FORMAT.md) (on-disk format),
 | `forked-sqlite` | SQLite adapter (bundled, zero system deps) |
 | `forked-api` | shared HTTP contract: DTOs + one dispatcher used by *both* servers |
 | `forked-server` | self-hostable axum server + Dockerfile |
-| `clients/ts` | `@forked/client` TypeScript SDK |
-| `clients/langgraph` | `@forked/langgraph` LangGraph checkpointer |
-| `clients/mcp` | `@forked/mcp` MCP server, gives any MCP agent (Claude Code, Cursor, …) checkpoint/rewind/effect tools |
+| `clients/ts` | `@forked-run/client` TypeScript SDK |
+| `clients/langgraph` | `@forked-run/langgraph` LangGraph checkpointer |
+| `clients/mcp` | `@forked-run/mcp` MCP server, gives any MCP agent (Claude Code, Cursor, …) checkpoint/rewind/effect tools |
 | `examples` | runnable use-case walkthroughs: safe retry (effectively-once effects), time-travel debugging, best-of-N exploration |
 
 Everything a single developer needs is and stays open source (Apache-2.0).
