@@ -80,6 +80,7 @@ impl From<forked_core::Error> for ApiError {
         match &e {
             E::NotFound(_) => ApiError::new(404, "not_found", e.to_string()),
             E::Conflict(_) => ApiError::new(409, "conflict", e.to_string()),
+            E::EffectMismatch(_) => ApiError::new(409, "effect_mismatch", e.to_string()),
             E::BranchExists(_) => ApiError::new(409, "branch_exists", e.to_string()),
             E::SessionExists(_) => ApiError::new(409, "session_exists", e.to_string()),
             E::InvalidName(_) | E::InvalidHash(_) => {

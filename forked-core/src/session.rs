@@ -289,6 +289,10 @@ impl<S: Storage> Forked<S> {
     /// returned and nothing is written. Otherwise the record is committed
     /// on `branch` (state unchanged) and returned as `Recorded`.
     ///
+    /// An existing key whose stored payload differs from `effect.payload`
+    /// fails with [`Error::EffectMismatch`] rather than replaying a result
+    /// that belongs to other input.
+    ///
     /// The existence check and the commit are not one atomic step across
     /// *concurrent* writers; serialize writers per session (as a Durable
     /// Object does) for a strict exactly-once guarantee.
@@ -299,6 +303,9 @@ impl<S: Storage> Forked<S> {
         effect: EffectRecord,
     ) -> Result<EffectOutcome> {
         if let Some(existing) = self.find_effect(session, &effect.key).await? {
+            if existing.payload != effect.payload {
+                return Err(Error::EffectMismatch(effect.key));
+            }
             return Ok(EffectOutcome::AlreadyRecorded(existing));
         }
         let head = self.head(session, branch).await?;

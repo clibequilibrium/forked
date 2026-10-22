@@ -235,15 +235,21 @@ export function buildServer(options: ForkedMcpOptions): McpServer {
     {
       title: "Check if a side effect already happened",
       description:
-        "Look up a side effect by its idempotency key BEFORE performing it. If a record exists, reuse its stored result, do NOT perform the effect again. Searches all branches, including rewound-away history.",
+        "Look up a side effect by its idempotency key BEFORE performing it. If a record exists, reuse its stored result, do NOT perform the effect again. Searches all branches, including rewound-away history. Pass the payload you are about to use: if the key was recorded with a different payload this fails with effect_mismatch, meaning the key must identify the new input.",
       inputSchema: {
         session_id: z.string(),
         key: z.string().describe("Stable idempotency key, e.g. 'send-email:report-42'"),
+        payload: z
+          .unknown()
+          .optional()
+          .describe("The input you are about to perform the effect with"),
       },
     },
-    async ({ session_id, key }) => {
+    async ({ session_id, key, payload }) => {
       try {
-        const record = await forked.session(session_id).findEffect(key);
+        const record = await forked
+          .session(session_id)
+          .findEffect(key, payload === undefined ? undefined : { payload: payload as Json });
         return textResult(
           record
             ? { already_done: true, record }
@@ -260,7 +266,7 @@ export function buildServer(options: ForkedMcpOptions): McpServer {
     {
       title: "Record a performed side effect",
       description:
-        "Record a side effect you just performed (email sent, payment made, API call issued) under a stable idempotency key. If the key already exists, nothing is written and the original stored result is returned, use that instead.",
+        "Record a side effect you just performed (email sent, payment made, API call issued) under a stable idempotency key. If the key already exists with the same payload, nothing is written and the original stored result is returned, use that instead. The same key with a different payload fails with effect_mismatch.",
       inputSchema: {
         session_id: z.string(),
         key: z.string(),

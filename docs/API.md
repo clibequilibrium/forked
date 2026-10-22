@@ -30,6 +30,7 @@ Non-2xx responses carry:
 | 404 | `unknown_route` | no such endpoint |
 | 409 | `conflict` | branch moved concurrently (re-read head, retry) |
 | 409 | `session_exists` / `branch_exists` | create collided |
+| 409 | `effect_mismatch` | effect key already recorded with a different payload |
 | 413 | `payload_too_large` | body over 16 MiB |
 | 429 | `rate_limited` | cloud only: plan limit reached |
 | 500 | `internal` / `storage_error` | server-side failure |
@@ -127,6 +128,10 @@ rewinds).
 → first time: `{ "status": "recorded", "record": {…}, "commit": "<hash>" }`
 → replay: `{ "status": "already_recorded", "record": {…} }` with the
 **original** stored result, don't re-run the effect, use `record.result`.
+→ same key, different `payload`: `409 effect_mismatch`. The stored result
+belongs to the old input, so it is not replayed. Build keys from whatever
+identifies the input (e.g. `charge:u-77:order-9`), so new input gets a new
+key.
 
 ### `GET /v1/sessions/{id}/effects?key=<urlencoded key>`
 Look up an effect by idempotency key without recording anything.
@@ -138,7 +143,8 @@ session has one writer at a time, forked cloud serializes writers per
 session; see FORMAT.md §6 for the concurrent-writer caveat):
 
 1. `GET /effects?key=…`, if a record exists, **reuse its `result`, do not
-   re-run the work**.
+   re-run the work** (after checking its `payload` matches yours; the TS
+   SDK's `findEffect(key, { payload })` does this for you).
 2. Otherwise do the work.
 3. `POST /effects` with the observed result. If a concurrent writer beat
    you to it, the response is `already_recorded` with *their* stored

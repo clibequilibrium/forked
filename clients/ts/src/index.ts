@@ -122,6 +122,25 @@ export class ForkedError extends Error {
   }
 }
 
+/** Structural JSON equality; object key order does not matter. */
+function jsonEqual(a: Json, b: Json): boolean {
+  if (a === b) return true;
+  if (typeof a !== "object" || typeof b !== "object" || a === null || b === null) {
+    return false;
+  }
+  if (Array.isArray(a) || Array.isArray(b)) {
+    return (
+      Array.isArray(a) &&
+      Array.isArray(b) &&
+      a.length === b.length &&
+      a.every((v, i) => jsonEqual(v, b[i] as Json))
+    );
+  }
+  const ka = Object.keys(a);
+  if (ka.length !== Object.keys(b).length) return false;
+  return ka.every((k) => k in b && jsonEqual(a[k] as Json, b[k] as Json));
+}
+
 /** Client for the forked v1 API. */
 export class ForkedClient {
   readonly baseUrl: string;
@@ -244,13 +263,30 @@ export class Session {
    * The effectively-once recipe: check with `findEffect`, do the work only if
    * `null`, then {@link recordEffect} the result (which also resolves a
    * lost race by returning the already-stored record).
+   *
+   * Pass `payload` to also check that a stored record was made from the
+   * same input: if the key exists with a different payload, this throws a
+   * `ForkedError` with code `"effect_mismatch"` instead of handing back a
+   * result that belongs to other input (the server does the same check on
+   * {@link recordEffect}).
    */
-  async findEffect(key: string): Promise<EffectRecord | null> {
+  async findEffect(
+    key: string,
+    options?: { payload?: Json },
+  ): Promise<EffectRecord | null> {
     const body = await this.client.request<{ record: EffectRecord | null }>(
       "GET",
       `/v1/sessions/${this.id}/effects?key=${encodeURIComponent(key)}`,
     );
-    return body.record;
+    const record = body.record;
+    if (record && options?.payload !== undefined && !jsonEqual(record.payload, options.payload)) {
+      throw new ForkedError(
+        409,
+        "effect_mismatch",
+        `effect key ${key} was already recorded with a different payload`,
+      );
+    }
+    return record;
   }
 
   /**

@@ -180,6 +180,35 @@ fn effect_still_recorded_after_rewind() {
 }
 
 #[test]
+fn effect_key_reused_with_different_payload_is_rejected() {
+    block_on(async {
+        let f = engine();
+        f.create_session("s").await.unwrap();
+        let charge = |amount: i64, txn: &str| EffectRecord {
+            key: "charge:u-77".into(),
+            kind: "payment.charge".into(),
+            payload: json!({ "amount": amount }),
+            result: json!({ "txn": txn }),
+        };
+        f.record_effect("s", "main", charge(184, "t-1")).await.unwrap();
+
+        // Same key, new amount: the stored charge is for 184, so replaying
+        // it would hand back the wrong result.
+        let changed = f.record_effect("s", "main", charge(200, "t-2")).await;
+        assert!(matches!(changed, Err(Error::EffectMismatch(k)) if k == "charge:u-77"));
+
+        // Same key and payload still replays; the result is not compared.
+        let replay = f.record_effect("s", "main", charge(184, "t-other")).await.unwrap();
+        match replay {
+            EffectOutcome::AlreadyRecorded(record) => {
+                assert_eq!(record.result, json!({ "txn": "t-1" }));
+            }
+            other => panic!("expected AlreadyRecorded, got {other:?}"),
+        }
+    });
+}
+
+#[test]
 fn small_update_shares_structure() {
     block_on(async {
         let f = engine();

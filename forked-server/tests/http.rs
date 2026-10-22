@@ -208,6 +208,17 @@ async fn effects_are_idempotent_over_http() {
     let (status, missing) = call(&app, "GET", "/v1/sessions/fx/effects?key=nope", None).await;
     assert_eq!(status, StatusCode::OK);
     assert!(missing["record"].is_null());
+
+    // Same key, different payload: rejected, not replayed.
+    let changed = json!({
+        "key": "charge-99",
+        "kind": "payment.charge",
+        "payload": {"amount": 120},
+        "result": {"txn": "t-2"}
+    });
+    let (status, err) = call(&app, "POST", "/v1/sessions/fx/effects", Some(changed)).await;
+    assert_eq!(status, StatusCode::CONFLICT);
+    assert_eq!(err["error"]["code"], "effect_mismatch");
 }
 
 #[tokio::test]

@@ -42,7 +42,7 @@ const sendgrid = async (to) => {
 // original result.
 // ---------------------------------------------------------------------------
 async function performOnce(session, { key, kind, payload }, work) {
-  const existing = await session.findEffect(key);
+  const existing = await session.findEffect(key, { payload });
   if (existing) {
     console.log(`    ↩ ${kind}, already done, reusing ${JSON.stringify(existing.result)}`);
     return existing.result;

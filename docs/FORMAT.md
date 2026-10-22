@@ -182,7 +182,10 @@ payments, API calls). The contract:
   searches every commit reachable from all of the session's branch and
   anchor refs.
 - Recording an effect whose key already exists returns the stored record
-  (including its result) instead of re-running the effect.
+  (including its result) instead of re-running the effect, provided the
+  payloads are equal. A different payload under an existing key is
+  rejected (`EffectMismatch`), never replayed: the stored result belongs
+  to other input. Results are not compared.
 - The existence check and the recording commit are two steps; a strict
   exactly-once guarantee additionally requires writers to a session to be
   serialized (e.g. one Durable Object per session). With concurrent

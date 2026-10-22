@@ -32,6 +32,13 @@ pub enum Error {
     #[error("conflict: branch {0} was modified concurrently")]
     Conflict(String),
 
+    /// An effect with this idempotency key was already recorded with a
+    /// different payload. Reusing a key for different input is almost
+    /// always a bug (the stored result belongs to the old input), so it is
+    /// rejected instead of replayed. Use a key that identifies the input.
+    #[error("effect key {0} was already recorded with a different payload")]
+    EffectMismatch(String),
+
     /// A session, branch or commit does not exist.
     #[error("not found: {0}")]
     NotFound(String),
