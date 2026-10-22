@@ -213,7 +213,7 @@ checksum = "aedcfb3409746eddb02b9e19ebda1c3394f759a152e48ee875a0844d1b955484"
 
 [[package]]
 name = "forked-api"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "forked-core",
  "serde",
@@ -222,7 +222,7 @@ dependencies = [
 
 [[package]]
 name = "forked-core"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "ciborium",
  "hex",
@@ -234,7 +234,7 @@ dependencies = [
 
 [[package]]
 name = "forked-memory"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "forked-core",
  "pollster",
@@ -243,7 +243,7 @@ dependencies = [
 
 [[package]]
 name = "forked-server"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "axum",
  "forked-api",
@@ -260,7 +260,7 @@ dependencies = [
 
 [[package]]
 name = "forked-sqlite"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "forked-core",
  "forked-memory",

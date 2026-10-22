@@ -1,6 +1,6 @@
 {
   "name": "@forked-run/mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "MCP server that gives any agent undo: checkpoint, fork, rewind and replay its own state through forked, with an effectively-once side-effect log.",
   "license": "Apache-2.0",
   "repository": {
@@ -32,7 +32,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@forked-run/client": "file:../ts",
+    "@forked-run/client": "^0.2.0",
     "@modelcontextprotocol/sdk": "^1.0.0",
     "zod": "^3.23.0"
   },

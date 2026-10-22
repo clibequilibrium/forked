@@ -1,6 +1,6 @@
 {
   "name": "@forked-run/client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "TypeScript client for forked: versioned state for AI agents, fork, rewind and replay structured agent state.",
   "license": "Apache-2.0",
   "repository": {
