@@ -190,7 +190,9 @@ fn effect_key_reused_with_different_payload_is_rejected() {
             payload: json!({ "amount": amount }),
             result: json!({ "txn": txn }),
         };
-        f.record_effect("s", "main", charge(184, "t-1")).await.unwrap();
+        f.record_effect("s", "main", charge(184, "t-1"))
+            .await
+            .unwrap();
 
         // Same key, new amount: the stored charge is for 184, so replaying
         // it would hand back the wrong result.
@@ -198,7 +200,10 @@ fn effect_key_reused_with_different_payload_is_rejected() {
         assert!(matches!(changed, Err(Error::EffectMismatch(k)) if k == "charge:u-77"));
 
         // Same key and payload still replays; the result is not compared.
-        let replay = f.record_effect("s", "main", charge(184, "t-other")).await.unwrap();
+        let replay = f
+            .record_effect("s", "main", charge(184, "t-other"))
+            .await
+            .unwrap();
         match replay {
             EffectOutcome::AlreadyRecorded(record) => {
                 assert_eq!(record.result, json!({ "txn": "t-1" }));
